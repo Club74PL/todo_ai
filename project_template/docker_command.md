@@ -34,3 +34,18 @@
 |                    | `docker compose stop`                              | Stops running containers without removing them.                                |
 |                    | `docker compose ps`                                | Lists services defined in the `docker-compose.yml` file.                       |
 |                    | `docker compose logs <service_name>`               | Displays logs for a specific service.                                          |
+
+
+# Docker and Poetry Commands Overview
+
+
+| Category             | Command                                                                                     | Description                                           |
+|----------------------|---------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| Docker Compose Exec  | `docker compose exec <service_name> poetry add 'pytest-cov==6.0.0'`                         | Adds the `pytest-cov` package to the Poetry project inside the container. |
+| Poetry Add           | `poetry add 'pytest-cov==6.0.0'`                                                            | Installs the `pytest-cov` package in the current virtual environment. |
+| Docker Compose Exec  | `docker compose exec <service_name> poetry run pytest`                                      | Runs tests using pytest inside the Docker container.  |
+| Poetry Run           | `poetry run python -m pytest`                                                               | Executes pytest to run tests in the current virtual environment. |
+| Docker Compose Exec  | `docker compose exec <service_name> poetry run python -m pytest`                            | Runs tests with pytest inside the specified Docker container. |
+| Docker Exec          | `docker exec <container_name> sh`                                                           | Opens a shell session in the running Docker container. |
+| Docker Compose Exec  | `docker compose exec <service_name> poetry run python -m pytest --cov=. --cov-report=html`  | Runs tests with a coverage report in HTML format inside the container. |
+
