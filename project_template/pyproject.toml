@@ -42,3 +42,17 @@ omit = [
     "*/tests/*.py",
     "conftest/*"
 ]
+
+[tool.ruff]
+include = ["pyproject.toml", "project_template/**/*.py"]
+line-length = 120
+
+[tool.ruff.format]
+exclude = ["docs"]
+quote-style = "single"
+indent-style = "tab"
+docstring-code-format = true
+docstring-code-line-length = 50
+
+[tool.mypy]
+exclude = ["docs"]
