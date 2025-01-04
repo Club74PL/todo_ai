@@ -1,29 +1,27 @@
 import uuid
-from datetime import timedelta, datetime
-
-from unittest.mock import patch
-
 import pytest
 from freezegun import freeze_time
 
-from tests.test_todos.create_todo import init_todo
+from core.todos.create_todo import init_todo
+
+from core.todos.todo import Todo, Status
+
+from unittest.mock import patch
+from datetime import timedelta, datetime
 
 
 def test_create_basic_valid_todo() -> None:
     mock_uuid4 = uuid.UUID('352c9582-2d41-4ba7-9b9e-d8e7d72ee7ac')
 
-
     with freeze_time('2024-12-12'), patch('uuid.uuid4', return_value=mock_uuid4):
-        todo: dict[str, str] = init_todo(
+        todo: Todo = init_todo(
             name='Learn Flask'
         )
 
-    assert todo == {'name': 'Learn Flask',
-                    'status': 'pending',
-                    'id': mock_uuid4,
-                    'created_at': datetime(2024, 12, 12),
+    assert todo == Todo(
+        name='Learn Flask',
 
-    }
+    )
 
 
 def test_create_todo_with_empty_name():
@@ -34,6 +32,7 @@ def test_create_todo_with_empty_name():
 def test_create_todo_invalid_name():
     with pytest.raises(ValueError, match='Task name is required.'):
         init_todo(name=' ')
+
 
 @pytest.mark.skip(reason='Not implemented yet.')
 def test_create_todo_with_all_options():
@@ -54,7 +53,7 @@ def test_create_todo_with_all_options():
             **data,
             'id': 1,
             'status': 'pending',
-        'created_at': datetime(2024, 12, 12, )
+            'created_at': datetime(2024, 12, 12, )
         }
 
 
@@ -68,6 +67,3 @@ def test_create_todo_with_non_positive_duration():
 
 def test_create_todo_with_non_positive_estimated_duration():
     pass
-
-
-
